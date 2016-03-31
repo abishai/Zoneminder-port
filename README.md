@@ -3,6 +3,7 @@ Zoneminder port for BSD
 
 Configuration file for nginx
 
+
 server {
         listen 80 default;
         keepalive_timeout 70;
