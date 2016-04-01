@@ -29,8 +29,7 @@ RUN_DEPENDS=	${BUILD_DEPENDS}
 USES=		cmake jpeg perl5 shebangfix
 USE_MYSQL= yes
 
-ZM_RUNDIR=	/var/run/zm
-ZM_TMPDIR=	/var/tmp/zm
+PLIST_SUB= WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
 
 SHEBANG_FILES=	scripts/zmaudit.pl.in \
 				scripts/zmcamtool.pl.in \
@@ -59,9 +58,9 @@ post-extract:
 
 post-install:
 	${CP} ${STAGEDIR}${PREFIX}/etc/zm.conf ${STAGEDIR}${PREFIX}/etc/zm.conf.sample
-	${INSTALL} -d -g ${WWWGRP} -o ${WWWOWN} ${STAGEDIR}${WWWDIR}/images
-	${INSTALL} -d -g ${WWWGRP} -o ${WWWOWN} ${STAGEDIR}${WWWDIR}/events
-	${INSTALL} -d -g ${WWWGRP} -o ${WWWOWN} ${STAGEDIR}${ZM_RUNDIR}
-	${INSTALL} -d -g ${WWWGRP} -o ${WWWOWN} ${STAGEDIR}${ZM_TMPDIR}
+	${MKDIR} ${STAGEDIR}${WWWDIR}/images
+	${MKDIR} ${STAGEDIR}${WWWDIR}/events
+	${MKDIR} ${STAGEDIR}/var/run/zm
+	${MKDIR} ${STAGEDIR}/var/tmp/zm
 	
 .include <bsd.port.mk>

@@ -7689,12 +7689,12 @@ share/man/man8/zoneminder-zmx10.pl.8.gz
 %%WWWDIR%%/tools/mootools/mootools-more.js
 %%WWWDIR%%/views/file.php
 %%WWWDIR%%/views/image.php
-@dir %%WWWDIR%%/events
-@dir %%WWWDIR%%/images
+@dir(%%WWWOWN%%,%%WWWGRP%%,) /var/run/zm
+@dir(%%WWWOWN%%,%%WWWGRP%%,) /var/tmp/zm
 @dir %%WWWDIR%%/skins/classic/ajax
 @dir %%WWWDIR%%/skins/classic/lang
 @dir %%WWWDIR%%/skins/mobile/ajax
 @dir %%WWWDIR%%/skins/mobile/graphics
 @dir %%WWWDIR%%/skins/mobile/lang
-@dir /var/run/zm
-@dir /var/tmp/zm
+@dir(%%WWWOWN%%,%%WWWGRP%%,) /var/run/zm
+@dir(%%WWWOWN%%,%%WWWGRP%%,) /var/tmp/zm
