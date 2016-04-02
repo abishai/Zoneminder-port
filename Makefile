@@ -2,7 +2,7 @@
 
 PORTNAME=	zoneminder
 PORTVERSION=	1.29.0
-DISTVERSION = ecb8c48
+DISTVERSION =	247cb3d
 CATEGORIES=	multimedia
 
 MAINTAINER=	foo@bar
@@ -22,7 +22,8 @@ BUILD_DEPENDS=	p5-DBI>=0:${PORTSDIR}/databases/p5-DBI \
 				p5-Date-Manip>=0:${PORTSDIR}/devel/p5-Date-Manip \
 				p5-Test-LWP-UserAgent>=0:${PORTSDIR}/www/p5-Test-LWP-UserAgent \
 				p5-Sys-Mmap>=0:${PORTSDIR}/devel/p5-Sys-Mmap \
-				p5-LWP-Protocol-https>=0:${PORTSDIR}/www/p5-LWP-Protocol-https
+				p5-LWP-Protocol-https>=0:${PORTSDIR}/www/p5-LWP-Protocol-https \
+				ffmpeg>=2.0:multimedia/ffmpeg
 LIB_DEPENDS=	libpolkit-gobject-1.so:${PORTSDIR}/sysutils/polkit
 RUN_DEPENDS=	${BUILD_DEPENDS}
 
