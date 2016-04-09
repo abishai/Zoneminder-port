@@ -29,6 +29,7 @@ RUN_DEPENDS=	${BUILD_DEPENDS}
 
 USES=		cmake jpeg perl5 shebangfix
 USE_MYSQL= yes
+IGNORE_WITH_PHP=    70
 
 PLIST_SUB= WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
 
