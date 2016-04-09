@@ -8,7 +8,6 @@ bin/zmf
 bin/zmfilter.pl
 bin/zmonvif-probe.pl
 bin/zmpkg.pl
-bin/zmstreamer
 bin/zmsystemctl.pl
 bin/zmtelemetry.pl
 bin/zmtrack.pl
@@ -6019,7 +6018,6 @@ share/man/man8/zoneminder-zmdc.pl.8.gz
 share/man/man8/zoneminder-zmf.8.gz
 share/man/man8/zoneminder-zmfilter.pl.8.gz
 share/man/man8/zoneminder-zmpkg.pl.8.gz
-share/man/man8/zoneminder-zmstreamer.8.gz
 share/man/man8/zoneminder-zmsystemctl.pl.8.gz
 share/man/man8/zoneminder-zmtelemetry.pl.8.gz
 share/man/man8/zoneminder-zmtrack.pl.8.gz
@@ -6092,6 +6090,7 @@ share/man/man8/zoneminder-zmx10.pl.8.gz
 %%DATADIR%%/db/zm_update-1.28.110.sql
 %%DATADIR%%/db/zm_update-1.28.99.sql
 %%DATADIR%%/db/zm_update-1.29.0.sql
+%%DATADIR%%/db/zm_update-1.29.1.sql
 %%WWWDIR%%/ajax/alarm.php
 %%WWWDIR%%/ajax/control.php
 %%WWWDIR%%/ajax/event.php
@@ -7648,35 +7647,6 @@ share/man/man8/zoneminder-zmx10.pl.8.gz
 %%WWWDIR%%/skins/classic/views/watch.php
 %%WWWDIR%%/skins/classic/views/zone.php
 %%WWWDIR%%/skins/classic/views/zones.php
-%%WWWDIR%%/skins/mobile/css/skin.css
-%%WWWDIR%%/skins/mobile/includes/config.php
-%%WWWDIR%%/skins/mobile/includes/control_functions.php
-%%WWWDIR%%/skins/mobile/includes/functions.php
-%%WWWDIR%%/skins/mobile/includes/init.php
-%%WWWDIR%%/skins/mobile/skin.php
-%%WWWDIR%%/skins/mobile/views/console.php
-%%WWWDIR%%/skins/mobile/views/css/console.css
-%%WWWDIR%%/skins/mobile/views/devices.php
-%%WWWDIR%%/skins/mobile/views/error.php
-%%WWWDIR%%/skins/mobile/views/event.php
-%%WWWDIR%%/skins/mobile/views/eventdetails.php
-%%WWWDIR%%/skins/mobile/views/events.php
-%%WWWDIR%%/skins/mobile/views/filter.php
-%%WWWDIR%%/skins/mobile/views/frame.php
-%%WWWDIR%%/skins/mobile/views/function.php
-%%WWWDIR%%/skins/mobile/views/login.php
-%%WWWDIR%%/skins/mobile/views/montage.php
-%%WWWDIR%%/skins/mobile/views/state.php
-%%WWWDIR%%/skins/mobile/views/video.php
-%%WWWDIR%%/skins/mobile/views/watch.php
-%%WWWDIR%%/skins/xml/includes/config.php
-%%WWWDIR%%/skins/xml/includes/functions.php
-%%WWWDIR%%/skins/xml/includes/init.php
-%%WWWDIR%%/skins/xml/skin.php
-%%WWWDIR%%/skins/xml/views/actions.php
-%%WWWDIR%%/skins/xml/views/console.php
-%%WWWDIR%%/skins/xml/views/none.php
-%%WWWDIR%%/skins/xml/views/notfound.png
 %%WWWDIR%%/tools/mootools/mootools-core-1.4.5-compat.js
 %%WWWDIR%%/tools/mootools/mootools-core.js
 %%WWWDIR%%/tools/mootools/mootools-more-1.5.1.js
@@ -7685,10 +7655,5 @@ share/man/man8/zoneminder-zmx10.pl.8.gz
 %%WWWDIR%%/views/image.php
 @dir(%%WWWOWN%%,%%WWWGRP%%,) %%WWWDIR%%/events
 @dir(%%WWWOWN%%,%%WWWGRP%%,) %%WWWDIR%%/images
-@dir %%WWWDIR%%/skins/classic/ajax
-@dir %%WWWDIR%%/skins/classic/lang
-@dir %%WWWDIR%%/skins/mobile/ajax
-@dir %%WWWDIR%%/skins/mobile/graphics
-@dir %%WWWDIR%%/skins/mobile/lang
 @dir(%%WWWOWN%%,%%WWWGRP%%,) /var/run/zm
 @dir(%%WWWOWN%%,%%WWWGRP%%,) /var/tmp/zm
