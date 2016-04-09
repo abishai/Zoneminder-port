@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	zoneminder
-PORTVERSION=	1.29.0
-DISTVERSION =	247cb3d
+PORTVERSION=	1.29.1
+DISTVERSION =	7645e29
 CATEGORIES=	multimedia
 
 MAINTAINER=	foo@bar
@@ -24,7 +24,6 @@ BUILD_DEPENDS=	p5-DBI>=0:${PORTSDIR}/databases/p5-DBI \
 				p5-Sys-Mmap>=0:${PORTSDIR}/devel/p5-Sys-Mmap \
 				p5-LWP-Protocol-https>=0:${PORTSDIR}/www/p5-LWP-Protocol-https \
 				ffmpeg>=2.0:multimedia/ffmpeg
-LIB_DEPENDS=	libpolkit-gobject-1.so:${PORTSDIR}/sysutils/polkit
 RUN_DEPENDS=	${BUILD_DEPENDS}
 
 USES=		cmake jpeg perl5 shebangfix
