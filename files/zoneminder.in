@@ -1,0 +1,33 @@
+# KEYWORD: shutdown
+#
+# Add these lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# zoneminder_enable (bool):     Set to NO by default.
+#                               Set it to YES to enable zoneminder.
+
+. /etc/rc.subr
+
+name=zoneminder
+rcvar=zoneminder_enable
+
+load_rc_config $name
+
+: ${zoneminder_enable="NO"}
+
+command=%%PREFIX%%/bin/zmpkg.pl
+command_args="$1"
+pidfile=/var/run/zm/zm.pid
+
+stop_cmd="zm_stop"
+status_cmd="zm_status"
+
+zm_stop() {
+  ${command} ${command_args}
+}
+
+zm_status() {
+  ${command} ${command_args}
+}
+
+run_rc_command "$1"

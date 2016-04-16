@@ -27,7 +27,8 @@ BUILD_DEPENDS=	p5-DBI>=0:${PORTSDIR}/databases/p5-DBI \
 RUN_DEPENDS=	${BUILD_DEPENDS}
 
 USES=		cmake jpeg perl5 shebangfix
-USE_MYSQL= yes
+USE_MYSQL=	yes
+USE_RC_SUBR=	zoneminder
 IGNORE_WITH_PHP=    70
 
 PLIST_SUB= WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
