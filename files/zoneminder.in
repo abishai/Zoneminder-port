@@ -1,3 +1,9 @@
+#!/bin/sh
+
+# $FreeBSD$
+#
+# PROVIDE: zoneminder
+# REQUIRE: mysql
 # KEYWORD: shutdown
 #
 # Add these lines to /etc/rc.conf.local or /etc/rc.conf
