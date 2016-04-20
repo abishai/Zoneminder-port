@@ -8,7 +8,6 @@ bin/zmf
 bin/zmfilter.pl
 bin/zmonvif-probe.pl
 bin/zmpkg.pl
-bin/zmsystemctl.pl
 bin/zmtelemetry.pl
 bin/zmtrack.pl
 bin/zmtrigger.pl

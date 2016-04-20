@@ -45,14 +45,14 @@ SHEBANG_FILES=	scripts/zmaudit.pl.in \
 		scripts/zmdc.pl.in \
 		scripts/zmfilter.pl.in \
 		scripts/zmpkg.pl.in \
-		scripts/zmsystemctl.pl.in \
 		scripts/zmtelemetry.pl.in \
 		scripts/zmtrack.pl.in \
 		scripts/zmtrigger.pl.in \
 		scripts/zmupdate.pl.in \
 		scripts/zmvideo.pl.in \
 		scripts/zmwatch.pl.in \
-		scripts/zmx10.pl.in
+		scripts/zmx10.pl.in \
+		onvif/scripts/zmonvif-probe.pl
 
 CMAKE_ARGS+=	-DZM_PERL_MM_PARMS=INSTALLDIRS=site \
 		-DZM_CONFIG_DIR=${PREFIX}/etc \
@@ -65,10 +65,12 @@ post-extract:
 	@${MV} ${WRKSRC_crud}/* ${WRKSRC}/web/api/app/Plugin/Crud
 
 pre-install:
-	${INSTALL_DATA} ${STAGEDIR}${PREFIX}/etc/zm.conf ${STAGEDIR}${PREFIX}/etc/zm.conf.sample
 	${MKDIR} ${STAGEDIR}${WWWDIR}/images
 	${MKDIR} ${STAGEDIR}${WWWDIR}/events
 	${MKDIR} ${STAGEDIR}/var/run/zm
 	${MKDIR} ${STAGEDIR}/var/tmp/zm
+
+post-install:
+	${INSTALL_DATA} ${STAGEDIR}${PREFIX}/etc/zm.conf ${STAGEDIR}${PREFIX}/etc/zm.conf.sample
 
 .include <bsd.port.mk>
