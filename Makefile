@@ -10,7 +10,7 @@ COMMENT=	Complete security camera solution, fully web based with image analysis
 
 LICENSE=	GPLv2
 
-RUN_DEPENDS=	p5-DBI>=0:${PORTSDIR}/databases/p5-DBI \
+ZM_DEPENDS=	p5-DBI>=0:${PORTSDIR}/databases/p5-DBI \
 		p5-DBD-mysql>=0:${PORTSDIR}/databases/p5-DBD-mysql \
 		p5-Date-Manip>=0:${PORTSDIR}/devel/p5-Date-Manip \
 		p5-Test-LWP-UserAgent>=0:${PORTSDIR}/www/p5-Test-LWP-UserAgent \
@@ -19,6 +19,8 @@ RUN_DEPENDS=	p5-DBI>=0:${PORTSDIR}/databases/p5-DBI \
 		p5-Sys-CPU>=0:${PORTSDIR}/devel/p5-Sys-Cpu \
 		p5-Sys-MemInfo>=0:${PORTSDIR}/devel/p5-Sys-MemInfo \
 		ffmpeg>=2.0:${PORTSDIR}/multimedia/ffmpeg
+BUILD_DEPENDS=	${ZM_DEPENDS}
+RUN_DEPENDS=	${ZM_DEPENDS}
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	FriendsOfCake:crud
