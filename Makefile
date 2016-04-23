@@ -10,15 +10,17 @@ COMMENT=	Complete security camera solution, fully web based with image analysis
 
 LICENSE=	GPLv2
 
-RUN_DEPENDS=	p5-DBI>=0:${PORTSDIR}/databases/p5-DBI \
-		p5-DBD-mysql>=0:${PORTSDIR}/databases/p5-DBD-mysql \
-		p5-Date-Manip>=0:${PORTSDIR}/devel/p5-Date-Manip \
-		p5-Test-LWP-UserAgent>=0:${PORTSDIR}/www/p5-Test-LWP-UserAgent \
-		p5-Sys-Mmap>=0:${PORTSDIR}/devel/p5-Sys-Mmap \
-		p5-LWP-Protocol-https>=0:${PORTSDIR}/www/p5-LWP-Protocol-https \
-		p5-Sys-CPU>=0:${PORTSDIR}/devel/p5-Sys-Cpu \
-		p5-Sys-MemInfo>=0:${PORTSDIR}/devel/p5-Sys-MemInfo \
-		ffmpeg>=2.0:${PORTSDIR}/multimedia/ffmpeg
+BUILD_DEPENDS=	p5-DBI>=0:databases/p5-DBI \
+		p5-DBD-mysql>=0:databases/p5-DBD-mysql \
+		p5-Date-Manip>=0:devel/p5-Date-Manip \
+		p5-Test-LWP-UserAgent>=0:www/p5-Test-LWP-UserAgent \
+		p5-Sys-Mmap>=0:devel/p5-Sys-Mmap \
+		p5-LWP-Protocol-https>=0:www/p5-LWP-Protocol-https \
+		p5-Sys-CPU>=0:devel/p5-Sys-Cpu \
+		p5-Sys-MemInfo>=0:devel/p5-Sys-MemInfo \
+		ffmpeg>=2.0:multimedia/ffmpeg
+LIB_DEPENDS=	libpolkit-gobject-1.so:sysutils/polkit
+RUN_DEPENDS=	${BUILD_DEPENDS}
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	FriendsOfCake:crud
@@ -27,7 +29,7 @@ GH_TAGNAME=	c3976f1:crud
 
 WRKSRC=		${WRKDIR}/ZoneMinder-${DISTVERSION}
 
-USES=		cmake jpeg perl5 shebangfix
+USES=		cmake pkgconfig jpeg perl5 shebangfix
 USE_MYSQL=	yes
 USE_RC_SUBR=	zoneminder
 IGNORE_WITH_PHP=    70
