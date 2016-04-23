@@ -10,15 +10,15 @@ COMMENT=	Complete security camera solution, fully web based with image analysis
 
 LICENSE=	GPLv2
 
-RUN_DEPENDS=	p5-DBI>=0:${PORTSDIR}/databases/p5-DBI \
-		p5-DBD-mysql>=0:${PORTSDIR}/databases/p5-DBD-mysql \
-		p5-Date-Manip>=0:${PORTSDIR}/devel/p5-Date-Manip \
-		p5-Test-LWP-UserAgent>=0:${PORTSDIR}/www/p5-Test-LWP-UserAgent \
-		p5-Sys-Mmap>=0:${PORTSDIR}/devel/p5-Sys-Mmap \
-		p5-LWP-Protocol-https>=0:${PORTSDIR}/www/p5-LWP-Protocol-https \
-		p5-Sys-CPU>=0:${PORTSDIR}/devel/p5-Sys-Cpu \
-		p5-Sys-MemInfo>=0:${PORTSDIR}/devel/p5-Sys-MemInfo \
-		ffmpeg>=2.0:${PORTSDIR}/multimedia/ffmpeg
+RUN_DEPENDS=	p5-DBI>=0:databases/p5-DBI \
+		p5-DBD-mysql>=0:databases/p5-DBD-mysql \
+		p5-Date-Manip>=0:devel/p5-Date-Manip \
+		p5-Test-LWP-UserAgent>=0:www/p5-Test-LWP-UserAgent \
+		p5-Sys-Mmap>=0:devel/p5-Sys-Mmap \
+		p5-LWP-Protocol-https>=0:www/p5-LWP-Protocol-https \
+		p5-Sys-CPU>=0:devel/p5-Sys-Cpu \
+		p5-Sys-MemInfo>=0:devel/p5-Sys-MemInfo \
+		ffmpeg>=2.0:multimedia/ffmpeg
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	FriendsOfCake:crud
