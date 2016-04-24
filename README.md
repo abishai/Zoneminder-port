@@ -22,9 +22,8 @@ server {
                 fastcgi_pass   unix:/tmp/php-fpm.sock;
                 fastcgi_index  index.php;
 
-                fastcgi_param  DOCUMENT_ROOT    /usr/local/www/zoneminder;
-                fastcgi_param  SCRIPT_FILENAME  /usr/local/www/zoneminder$fastcgi_script_name;
-                fastcgi_param  PATH_TRANSLATED  /usr/local/www/zoneminder$fastcgi_script_name;
+                fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                fastcgi_param  PATH_TRANSLATED  $document_root$fastcgi_script_name;
         }
 }
 ```
