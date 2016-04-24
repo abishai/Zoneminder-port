@@ -11,7 +11,6 @@ server {
         index index.php;
 
 	location = /cgi-bin/nph-zms {
-		root /usr/local/www/zonemindeR;
         	include fastcgi_params;
         	fastcgi_param SCRIPT_FILENAME /usr/local/www/zoneminder/cgi-bin/nph-zms;
         	fastcgi_pass unix:/var/run/fcgiwrap/fcgiwrap.sock;
