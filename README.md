@@ -8,7 +8,7 @@ server {
         keepalive_timeout 70;
 
         root /usr/local/www/zoneminder;
-        index index.php index.html index.htm;
+        index index.php;
 
 	location = /cgi-bin/nph-zms {
 		root /usr/local/www/zonemindeR;
