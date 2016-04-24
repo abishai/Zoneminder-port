@@ -5,7 +5,6 @@ Configuration file for nginx
 ```
 server {
         listen 80 default;
-        keepalive_timeout 70;
 
         root /usr/local/www/zoneminder;
         index index.php;
