@@ -18,7 +18,8 @@ ZM_DEPENDS=	p5-DBI>=0:databases/p5-DBI \
 		p5-LWP-Protocol-https>=0:www/p5-LWP-Protocol-https \
 		p5-Sys-CPU>=0:devel/p5-Sys-Cpu \
 		p5-Sys-MemInfo>=0:devel/p5-Sys-MemInfo \
-		ffmpeg:multimedia/ffmpeg
+		ffmpeg:multimedia/ffmpeg \
+		sudo:security/sudo
 BUILD_DEPENDS=	${ZM_DEPENDS}
 RUN_DEPENDS=	${ZM_DEPENDS}
 
@@ -32,6 +33,7 @@ WRKSRC=		${WRKDIR}/ZoneMinder-${DISTVERSION}
 USES=		cmake jpeg perl5 shebangfix
 USE_MYSQL=	yes
 USE_RC_SUBR=	zoneminder
+PHP=		pdo_mysql session
 IGNORE_WITH_PHP=    70
 
 OPTIONS_DEFINE=	NLS V4L
