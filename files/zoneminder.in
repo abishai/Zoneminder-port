@@ -22,18 +22,17 @@ load_rc_config $name
 : ${zoneminder_enable="NO"}
 
 command=%%PREFIX%%/bin/zmpkg.pl
-command_args="$1"
 pidfile=/var/run/zm/zm.pid
+extra_commands="logrot version"
 
-stop_cmd="zm_stop"
-status_cmd="zm_status"
+start_cmd="zm_cmd"
+stop_cmd="zm_cmd"
+status_cmd="zm_cmd"
+logrot_cmd="zm_cmd"
+version_cmd="zm_cmd"
 
-zm_stop() {
-  ${command} ${command_args}
-}
-
-zm_status() {
-  ${command} ${command_args}
+zm_cmd() {
+  ${command} ${rc_arg}
 }
 
 run_rc_command "$1"
