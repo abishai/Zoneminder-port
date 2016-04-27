@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	zoneminder
-PORTVERSION=	1.29.1.a.20160420
-DISTVERSION =	5a3978f
+PORTVERSION=	1.29.1.a.20160426
+DISTVERSION =	ff3e9c8
 CATEGORIES=	multimedia
 
 MAINTAINER=	foo@bar
@@ -18,10 +18,10 @@ ZM_DEPENDS=	p5-DBI>=0:databases/p5-DBI \
 		p5-LWP-Protocol-https>=0:www/p5-LWP-Protocol-https \
 		p5-Sys-CPU>=0:devel/p5-Sys-Cpu \
 		p5-Sys-MemInfo>=0:devel/p5-Sys-MemInfo \
-		ffmpeg:multimedia/ffmpeg \
-		sudo:security/sudo
+		ffmpeg:multimedia/ffmpeg
 BUILD_DEPENDS=	${ZM_DEPENDS}
-RUN_DEPENDS=	${ZM_DEPENDS}
+RUN_DEPENDS=	${ZM_DEPENDS} \
+		sudo:security/sudo
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	FriendsOfCake:crud
@@ -71,6 +71,7 @@ CMAKE_ARGS+=	-DZM_PERL_MM_PARMS=INSTALLDIRS=site \
 
 post-extract:
 	@${MV} ${WRKSRC_crud}/* ${WRKSRC}/web/api/app/Plugin/Crud
+	${REINPLACE_CMD} -e 's,/dev/shm,/tmp,g' ${WRKSRC}/scripts/ZoneMinder/lib/ZoneMinder/ConfigData.pm.in
 
 pre-install:
 	${MKDIR} ${STAGEDIR}${WWWDIR}/images
