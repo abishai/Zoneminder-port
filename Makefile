@@ -36,13 +36,13 @@ USE_RC_SUBR=	zoneminder
 PHP=		pdo_mysql session
 IGNORE_WITH_PHP=    70
 
-OPTIONS_DEFINE=	NLS V4L
+OPTIONS_DEFINE=	NLS V4L DOCS
 OPTIONS_SUB=	yes
 NLS_USES=	gettext
 NLS_CONFIGURE_ENABLE=	nls
 V4L_BUILD_DEPENDS=	${LOCALBASE}/include/linux/videodev2.h:multimedia/v4l_compat
 V4L_LIB_DEPENDS=	libv4l2.so:multimedia/libv4l
-OPTIONS_DEFAULT=	NLS V4L
+OPTIONS_DEFAULT=	NLS
 
 PLIST_SUB= WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
 
@@ -61,7 +61,7 @@ SHEBANG_FILES=	scripts/zmaudit.pl.in \
 		scripts/zmx10.pl.in \
 		onvif/scripts/zmonvif-probe.pl
 
-PORTDOCS=	AUTHORS BUGS COPYING ChangeLog INSTALL LICENSE NEWS README.FreeBSD TODO
+DOCS=	AUTHORS BUGS COPYING ChangeLog INSTALL LICENSE NEWS README.FreeBSD TODO
 
 CMAKE_ARGS+=	-DZM_PERL_MM_PARMS=INSTALLDIRS=site \
 		-DZM_CONFIG_DIR=${PREFIX}/etc \
@@ -74,7 +74,7 @@ CMAKE_ARGS+=	-DZM_PERL_MM_PARMS=INSTALLDIRS=site \
 
 post-extract:
 	${MV} ${WRKSRC_crud}/* ${WRKSRC}/web/api/app/Plugin/Crud
-	{CP} ${FILESDIR}/README.FreeBSD ${WRKSRC}
+	${CP} ${FILESDIR}/README.FreeBSD ${WRKSRC}
 	${REINPLACE_CMD} -e 's,/dev/shm,/tmp,g' ${WRKSRC}/scripts/ZoneMinder/lib/ZoneMinder/ConfigData.pm.in
 
 pre-install:
