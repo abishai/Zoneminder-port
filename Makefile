@@ -61,7 +61,7 @@ SHEBANG_FILES=	scripts/zmaudit.pl.in \
 		scripts/zmx10.pl.in \
 		onvif/scripts/zmonvif-probe.pl
 
-DOCS=	AUTHORS BUGS COPYING ChangeLog INSTALL LICENSE NEWS README.FreeBSD TODO
+PORTDOCS=	AUTHORS BUGS ChangeLog INSTALL NEWS README.FreeBSD TODO
 
 CMAKE_ARGS+=	-DZM_PERL_MM_PARMS=INSTALLDIRS=site \
 		-DZM_CONFIG_DIR=${PREFIX}/etc \
@@ -85,6 +85,8 @@ pre-install:
 
 post-install:
 	${INSTALL_DATA} ${STAGEDIR}${PREFIX}/etc/zm.conf ${STAGEDIR}${PREFIX}/etc/zm.conf.sample
+
+post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC} && ${INSTALL_DATA} ${DOCS} ${STAGEDIR}${DOCSDIR}
 
