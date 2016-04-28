@@ -7653,5 +7653,6 @@ share/man/man8/zoneminder-zmx10.pl.8.gz
 %%WWWDIR%%/views/image.php
 @dir(%%WWWOWN%%,%%WWWGRP%%,) %%WWWDIR%%/events
 @dir(%%WWWOWN%%,%%WWWGRP%%,) %%WWWDIR%%/images
+@dir(%%WWWOWN%%,%%WWWGRP%%,) %%WWWDIR%%/api/app/tmp
 @dir(%%WWWOWN%%,%%WWWGRP%%,) /var/run/zm
 @dir(%%WWWOWN%%,%%WWWGRP%%,) /var/tmp/zm
