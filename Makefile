@@ -44,7 +44,7 @@ V4L_BUILD_DEPENDS=	${LOCALBASE}/include/linux/videodev2.h:multimedia/v4l_compat
 V4L_LIB_DEPENDS=	libv4l2.so:multimedia/libv4l
 OPTIONS_DEFAULT=	NLS
 
-PLIST_SUB= WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
+PLIST_SUB=	WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
 
 SHEBANG_FILES=	scripts/zmaudit.pl.in \
 		scripts/zmcamtool.pl.in \
