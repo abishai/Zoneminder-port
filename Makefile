@@ -21,7 +21,8 @@ ZM_DEPENDS=	p5-DBI>=0:databases/p5-DBI \
 		ffmpeg:multimedia/ffmpeg
 BUILD_DEPENDS=	${ZM_DEPENDS}
 RUN_DEPENDS=	${ZM_DEPENDS} \
-		sudo:security/sudo
+		sudo:security/sudo \
+		zip:archivers/zip
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	FriendsOfCake:crud
@@ -33,7 +34,7 @@ WRKSRC=		${WRKDIR}/ZoneMinder-${DISTVERSION}
 USES=		cmake jpeg perl5 shebangfix
 USE_MYSQL=	yes
 USE_RC_SUBR=	zoneminder
-PHP=		pdo_mysql session
+PHP=		json pdo_mysql session
 IGNORE_WITH_PHP=    70
 
 OPTIONS_DEFINE=	NLS V4L DOCS
@@ -44,7 +45,7 @@ V4L_BUILD_DEPENDS=	${LOCALBASE}/include/linux/videodev2.h:multimedia/v4l_compat
 V4L_LIB_DEPENDS=	libv4l2.so:multimedia/libv4l
 OPTIONS_DEFAULT=	NLS
 
-PLIST_SUB= WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
+PLIST_SUB=	WWWOWN="${WWWOWN}" WWWGRP="${WWWGRP}"
 
 SHEBANG_FILES=	scripts/zmaudit.pl.in \
 		scripts/zmcamtool.pl.in \
@@ -80,6 +81,8 @@ post-extract:
 pre-install:
 	${MKDIR} ${STAGEDIR}${WWWDIR}/images
 	${MKDIR} ${STAGEDIR}${WWWDIR}/events
+	${MKDIR} ${STAGEDIR}${WWWDIR}/temp
+	${MKDIR} ${STAGEDIR}${WWWDIR}/api/app/tmp
 	${MKDIR} ${STAGEDIR}/var/run/zm
 	${MKDIR} ${STAGEDIR}/var/tmp/zm
 
@@ -88,6 +91,6 @@ post-install:
 
 post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
-	cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
+	cd ${WRKSRC} && ${INSTALL_MAN} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
 
 .include <bsd.port.mk>
