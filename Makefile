@@ -21,7 +21,8 @@ ZM_DEPENDS=	p5-DBI>=0:databases/p5-DBI \
 		ffmpeg:multimedia/ffmpeg
 BUILD_DEPENDS=	${ZM_DEPENDS}
 RUN_DEPENDS=	${ZM_DEPENDS} \
-		sudo:security/sudo
+		sudo:security/sudo \
+		zip:archivers/zip
 
 USE_GITHUB=	yes
 GH_ACCOUNT=	FriendsOfCake:crud
