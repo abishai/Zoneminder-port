@@ -81,6 +81,7 @@ post-extract:
 pre-install:
 	${MKDIR} ${STAGEDIR}${WWWDIR}/images
 	${MKDIR} ${STAGEDIR}${WWWDIR}/events
+	${MKDIR} ${STAGEDIR}${WWWDIR}/temp
 	${MKDIR} ${STAGEDIR}${WWWDIR}/api/app/tmp
 	${MKDIR} ${STAGEDIR}/var/run/zm
 	${MKDIR} ${STAGEDIR}/var/tmp/zm
