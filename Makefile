@@ -33,7 +33,7 @@ WRKSRC=		${WRKDIR}/ZoneMinder-${DISTVERSION}
 USES=		cmake jpeg perl5 shebangfix
 USE_MYSQL=	yes
 USE_RC_SUBR=	zoneminder
-PHP=		pdo_mysql session
+PHP=		json pdo_mysql session
 IGNORE_WITH_PHP=    70
 
 OPTIONS_DEFINE=	NLS V4L DOCS
