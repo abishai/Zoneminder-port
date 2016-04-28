@@ -1,7 +1,7 @@
 # Zoneminder-port
-Zoneminder port for BSD
+Zoneminder port for FreeBSD
 
-Configuration file for nginx
+Configuration file for NGINX
 ```
 server {
         listen 80 default;
@@ -19,7 +19,7 @@ server {
         location ~ \.php$ { 
                 include fastcgi_params;
                 fastcgi_param   SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-                fastcgi_pass    unix:/tmp/php-fpm.sock;
+                fastcgi_pass    unix:/var/run/php-fpm.sock;
         }
 }
 ```
