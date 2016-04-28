@@ -22,8 +22,8 @@ server {
                 fastcgi_pass    unix:/var/run/php-fpm.sock;
         }
 
-	location /api {
+        location /api {
                 rewrite ^/api/(.+)$ /api/index.php?p=$1 last;
-	}
+        }
 }
 ```
