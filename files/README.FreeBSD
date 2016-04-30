@@ -54,12 +54,12 @@ innodb_file_per_table
 ####
 
 service mysql-server start
-mysql -u root zm < /usr/local/share/zoneminder/db/zm_create.sql
 mysql -u root
     CREATE DATABASE zm;
     GRANT ALL PRIVILEGES ON zm.* TO 'zmuser'@'localhost' IDENTIFIED BY 'zmpass';
     FLUSH PRIVILEGES;
     quit;
+mysql -u root zm < /usr/local/share/zoneminder/db/zm_create.sql
 
 service zoneminder start
 service nginx start
