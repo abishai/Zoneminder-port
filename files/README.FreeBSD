@@ -1,4 +1,5 @@
-#For optimal performance ZoneMinder's PATH_MAP, which defaults to "/tmp", should reside on a tmpfs file system. See https://www.freebsd.org/cgi/man.cgi?query=tmpfs
+# For optimal performance ZoneMinder's PATH_MAP, which defaults to "/tmp", should reside on a tmpfs file system.
+# See https://www.freebsd.org/cgi/man.cgi?query=tmpfs
 
 pkg install zoneminder nginx fcgiwrap mysql56-server
 sysrc zoneminder_enable="YES" nginx_enable="YES" php_fpm_enable="YES" fcgiwrap_enable="YES" mysql_server_enable="YES"
