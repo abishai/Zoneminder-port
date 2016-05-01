@@ -1,1 +1,67 @@
-Dummy
+# For optimal performance ZoneMinder's PATH_MAP, which defaults to "/tmp", should reside on a tmpfs file system.
+# See https://www.freebsd.org/cgi/man.cgi?query=tmpfs
+
+pkg install zoneminder nginx fcgiwrap mysql56-server
+sysrc zoneminder_enable="YES" nginx_enable="YES" php_fpm_enable="YES" fcgiwrap_enable="YES" mysql_server_enable="YES"
+
+## /usr/local/etc/nginx.conf ##
+## Your server block should include the following ##
+server {
+        root /usr/local/www/zoneminder;
+        try_files $uri $uri/ /index.php$is_args$args;
+        index index.php;
+
+        location = /cgi-bin/nph-zms {
+                include fastcgi_params;
+                fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_pass    unix:/var/run/fcgiwrap/fcgiwrap.sock;
+        }
+
+        location ~ \.php$ { 
+                include fastcgi_params;
+                fastcgi_param   SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                fastcgi_pass    unix:/var/run/php-fpm.sock;
+        }
+
+        location /api {
+                rewrite ^/api/(.+)$ /api/index.php?p=$1 last;
+        }
+}
+####
+
+cp /usr/local/etc/php.ini-production /usr/local/etc/php.ini
+## Edit /usr/local/etc/php.ini ##
+## See for your local timezone http://php.net/manual/en/timezones.php ##
+date.timezone = America/Los_Angeles
+####
+
+## Edit /usr/local/etc/php-fpm.conf ##
+listen = /var/run/php-fpm.sock
+listen.owner = www
+listen.group = www
+env[PATH] = /usr/local/bin:/usr/bin:/bin
+####
+
+sysrc fcgiwrap_user="www" fcgiwrap_flags="-c 4"
+
+## Create /var/db/mysql/my.cnf ##
+[server]
+skip-networking
+skip-name-resolve
+innodb_flush_method = O_DIRECT
+skip-innodb_doublewrite
+innodb_file_per_table
+####
+
+service mysql-server start
+mysql -u root
+    CREATE DATABASE zm;
+    GRANT ALL PRIVILEGES ON zm.* TO 'zmuser'@'localhost' IDENTIFIED BY 'zmpass';
+    FLUSH PRIVILEGES;
+    quit;
+mysql -u root zm < /usr/local/share/zoneminder/db/zm_create.sql
+
+service zoneminder start
+service nginx start
+service php-fpm start
+service fcgiwrap start
