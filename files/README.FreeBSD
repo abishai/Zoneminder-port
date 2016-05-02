@@ -1,67 +1,160 @@
-# For optimal performance ZoneMinder's PATH_MAP, which defaults to "/tmp", should reside on a tmpfs file system.
-# See https://www.freebsd.org/cgi/man.cgi?query=tmpfs
 
-pkg install zoneminder nginx fcgiwrap mysql56-server
-sysrc zoneminder_enable="YES" nginx_enable="YES" php_fpm_enable="YES" fcgiwrap_enable="YES" mysql_server_enable="YES"
+ZoneMinder is a free, open source Closed-circuit television software 
+application developed for Unix-like operating systems which supports 
+IP, USB and Analog cameras. 
 
-## /usr/local/etc/nginx.conf ##
-## Your server block should include the following ##
-server {
-        root /usr/local/www/zoneminder;
-        try_files $uri $uri/ /index.php$is_args$args;
-        index index.php;
+New installs
+============
 
-        location = /cgi-bin/nph-zms {
-                include fastcgi_params;
-                fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                fastcgi_pass    unix:/var/run/fcgiwrap/fcgiwrap.sock;
+ZoneMinder require MySQL (or MySQL forks) database backend and a 
+http server, capable to execute PHP and CGI scripts.
+
+To simplify things, we assume, that you use MySQL and nginx on 
+the same box.
+
+1. Preliminary steps
+
+1.1 Install databases/mysql56-server
+	You may choose your favourite method - ports or packages here. 
+	FreeBSD default setting use STRICT_TRANS_TABLES sql_mode. It's mandatory to disable it. Edit your my.cnf or create new in /var/db/mysql
+	
+	The following example works with ZM quite well
+
+	[server]
+		skip-networking
+		skip-name-resolve
+		innodb_flush_method = O_DIRECT
+		skip-innodb_doublewrite
+		innodb_file_per_table
+
+	ZoneMinder use very simple queries, however it tend to write to 
+	database quite a lot depending on your capture mode and cameras 
+	number. So, tweak your MySQL instance accordantly
+
+	Now, enable and start MySQL
+		sysrc mysql_server_enable="YES"
+		service mysql-server start
+
+1.2 Install www/nginx 
+	We provide example for http install, however, you should go https if 
+	you plan to expose your installation to the public. There are plenty 
+	guides how to do it and 
+	security/letsencrypt.sh is a good way to get a valid https sertificate.
+
+	Your server block should include the following code:
+
+		server {
+				root /usr/local/www/zoneminder;
+				try_files $uri $uri/ /index.php$is_args$args;
+				index index.php;
+
+				location = /cgi-bin/nph-zms {
+						include fastcgi_params;
+						fastcgi_param   SCRIPT_FILENAME $document_root$fastcgi_script_name;
+						fastcgi_pass    unix:/var/run/fcgiwrap/fcgiwrap.sock;
+				}
+
+				location ~ \.php$ { 
+						include fastcgi_params;
+						fastcgi_param   SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+						fastcgi_pass    unix:/var/run/php-fpm.sock;
+				}
+
+				location /api {
+						rewrite ^/api/(.+)$ /api/index.php?p=$1 last;
+				}
+		}
+
+1.2.1 ZoneMinder has it's own auth system, however we recommend to use nginx basic 
+	auth over https here if you don't need fine grain control to ZoneMinder components.
+
+1.2.2 If you go ZoneMinder auth way, it's recommended to prohibit access to 
+	image and events folder as it's easy to guess file names inside it.
+
+        location ~ ^/(images|events) {
+                deny all;
         }
+        
+	Enable and start nginx
+		sysrc nginx_enable="YES"
+		service nginx start
 
-        location ~ \.php$ { 
-                include fastcgi_params;
-                fastcgi_param   SCRIPT_FILENAME  $document_root$fastcgi_script_name;
-                fastcgi_pass    unix:/var/run/php-fpm.sock;
-        }
+1.3 Install www/fcgiwrap 
+	As nginx lacks it's own cgi wrapper, we need external one. Please 
+	notice, that ZoneMinder montage page use simultaneous access to all 
+	cameras, so you need to use as many fcgiwrap workers as your number of 
+	cameras. The following example assumes you have 4 of them.
 
-        location /api {
-                rewrite ^/api/(.+)$ /api/index.php?p=$1 last;
-        }
-}
-####
+	Enable and start fcgiwrap
+		sysrc fcgiwrap_enable="YES"
+		sysrc fcgiwrap_user="www"
+		sysrc fcgiwrap_flags="-c 4"
 
-cp /usr/local/etc/php.ini-production /usr/local/etc/php.ini
-## Edit /usr/local/etc/php.ini ##
-## See for your local timezone http://php.net/manual/en/timezones.php ##
-date.timezone = America/Los_Angeles
-####
+1.4 PHP is pulled automatically by ZoneMinder run-deps. However, you should tweak 
+	some of it's settings. Edit /usr/local/etc/php-fpm.conf and set
 
-## Edit /usr/local/etc/php-fpm.conf ##
-listen = /var/run/php-fpm.sock
-listen.owner = www
-listen.group = www
-env[PATH] = /usr/local/bin:/usr/bin:/bin
-####
+		listen = /var/run/php-fpm.sock
+		listen.owner = www
+		listen.group = www
 
-sysrc fcgiwrap_user="www" fcgiwrap_flags="-c 4"
+	If you want to set another path for sock file, make sure you change it 
+	for nginx as well.
 
-## Create /var/db/mysql/my.cnf ##
-[server]
-skip-networking
-skip-name-resolve
-innodb_flush_method = O_DIRECT
-skip-innodb_doublewrite
-innodb_file_per_table
-####
+	Enable and start php-fpm
+		sysrc php_fpm_enable="YES"
+		service php-fpm start
 
-service mysql-server start
-mysql -u root
-    CREATE DATABASE zm;
-    GRANT ALL PRIVILEGES ON zm.* TO 'zmuser'@'localhost' IDENTIFIED BY 'zmpass';
-    FLUSH PRIVILEGES;
-    quit;
-mysql -u root zm < /usr/local/share/zoneminder/db/zm_create.sql
+1.5 ZoneMinder constantly keeps last N frames from cameras to preserve them when 
+	alarm occurs. It can be a performance hog if placed on spindle 
+	drive. The best practice is put it in tempfs.
+	See https://www.freebsd.org/cgi/man.cgi?query=tmpfs for more 
+	information.
 
-service zoneminder start
-service nginx start
-service php-fpm start
-service fcgiwrap start
+	ZoneMinder will use /tmp for default. If you plan to change it, see 
+	ZM_PATH_MAP setting.
+
+	Mapping /tmp to tmpfs is actually a recommended step under FreeBSD.
+	Edit /etc/fstab and add the following:
+
+		tmpfs			/tmp		tmpfs	rw,nosuid,mode=01777	0	0
+
+	The size of temp files depends on your cameras number and frames you 
+	plan to keep in it. My 12 3Mbit cameras with 25 last frames 
+	consumes 6 Gb.
+
+2. ZoneMinder installation
+
+	Connect to MySQL under root and create zm user and populate database.
+
+	mysql -u root -p
+	
+		CREATE DATABASE zm;
+		GRANT ALL PRIVILEGES ON zm.* TO 'zmuser'@'localhost' IDENTIFIED BY 'zmpass';
+		FLUSH PRIVILEGES;
+		quit;
+	
+	mysql -u root -p zm < /usr/local/share/zoneminder/db/zm_create.sql
+	
+2.1 If you have chosen to change the zoneminder mysql credentials to something
+	other than zmuser/zmpass then you must now edit /usr/local/etc/zm.conf. Change
+	ZM_DB_USER and ZM_DB_PASS to the values you created in the previous step.
+
+	Additionally, you must also edit 
+	/usr/local/www/zoneminder/api/app/Config/database.php in a similar 
+	manner. Scroll down and change login and password to the values you created in the previous step.
+
+	Enable and start ZoneMinder
+		sysrc zoneminder_enable="YES"
+		service zoneminder start
+
+Upgrades
+========
+
+1. Stop ZoneMinder
+	service zoneminder stop
+
+2. Upgrade database
+	sudo -u www zmupdate.pl
+	
+3. Start ZoneMinder
+	service zoneminder start
