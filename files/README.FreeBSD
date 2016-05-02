@@ -96,9 +96,14 @@ the same box.
 		listen = /var/run/php-fpm.sock
 		listen.owner = www
 		listen.group = www
+		env[PATH] = /usr/local/bin:/usr/bin:/bin
 
 	If you want to set another path for sock file, make sure you change it 
-	for nginx as well.
+	for nginx as well. The env[PATH] set path to zip utility as ZoneMinder export functions rely on exec(). Sorry, chroot folks. 
+
+	PHP throws warning if date.timezone option is not set, so don't forget to set it. The best place to do it is drop ini file to /usr/local/etc/php 
+
+		date.timezone = "UTC"
 
 	Enable and start php-fpm
 		sysrc php_fpm_enable="YES"
