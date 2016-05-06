@@ -71,7 +71,7 @@ the same server.
 1.2.2 If you choose ZoneMinder authentication, it's recommended to prohibit access to 
 	image and events folder as it's possible to guess file names inside it.
 
-        location ~ ^/(images|events) {
+        location ~ ^/(?:images|events)/ {
                 deny all;
         }
         
