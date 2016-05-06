@@ -6,11 +6,11 @@ IP, USB and Analog cameras.
 New installs
 ============
 
-ZoneMinder require MySQL (or MySQL forks) database backend and a 
-http server, capable to execute PHP and CGI scripts.
+ZoneMinder requires a MySQL (or MySQL forks) database backend and 
+a http server, capable to execute PHP and CGI scripts.
 
-To simplify things, we assume, that you use MySQL and nginx on 
-the same box.
+To simplify things, we assume, that you use MySQL and NGINX on 
+the same server.
 
 1. Preliminary steps
 
@@ -18,7 +18,7 @@ the same box.
 	You may choose your favourite method - ports or packages here. 
 	FreeBSD default setting use STRICT_TRANS_TABLES sql_mode. It's mandatory to disable it. Edit your my.cnf or create new in /var/db/mysql
 	
-	The following example works with ZM quite well
+	The following example works with ZoneMinder quite well
 
 	[server]
 		skip-networking
@@ -27,21 +27,21 @@ the same box.
 		skip-innodb_doublewrite
 		innodb_file_per_table
 
-	ZoneMinder use very simple queries, however it tend to write to 
-	database quite a lot depending on your capture mode and cameras 
-	number. So, tweak your MySQL instance accordantly
+	ZoneMinder use very simple queries, however it tends to write to 
+	the database quite a lot depending on your capture mode and number 
+	of cameras. So tweak your MySQL instance accordantly
 
 	Now, enable and start MySQL
 		sysrc mysql_server_enable="YES"
 		service mysql-server start
 
 1.2 Install www/nginx 
-	We provide example for http install, however, you should go https if 
-	you plan to expose your installation to the public. There are plenty 
-	guides how to do it and 
-	security/letsencrypt.sh is a good way to get a valid https sertificate.
+	We provide an example for an HTTP install, however, you should use 
+	HTTPS if you plan to expose your installation to the public. There 
+	are plenty guides how to do it and security/letsencrypt.sh is a 
+	good way to get a valid SSL certificate.
 
-	Your server block should include the following code:
+	Your server block should include the following:
 
 		server {
 				root /usr/local/www/zoneminder;
@@ -65,43 +65,47 @@ the same box.
 				}
 		}
 
-1.2.1 ZoneMinder has it's own auth system, however we recommend to use nginx basic 
-	auth over https here if you don't need fine grain control to ZoneMinder components.
+1.2.1 ZoneMinder has it's own authentication system, however it's recommend to use NGINX basic 
+	auth over HTTPS if you don't need fine grain control to ZoneMinder components.
 
-1.2.2 If you go ZoneMinder auth way, it's recommended to prohibit access to 
-	image and events folder as it's easy to guess file names inside it.
+1.2.2 If you choose ZoneMinder authentication, it's recommended to prohibit access to 
+	image and events folder as it's possible to guess file names inside it.
 
         location ~ ^/(images|events) {
                 deny all;
         }
         
-	Enable and start nginx
+	Enable and start NGINX
 		sysrc nginx_enable="YES"
 		service nginx start
 
 1.3 Install www/fcgiwrap 
-	As nginx lacks it's own cgi wrapper, we need external one. Please 
-	notice, that ZoneMinder montage page use simultaneous access to all 
-	cameras, so you need to use as many fcgiwrap workers as your number of 
-	cameras. The following example assumes you have 4 of them.
+	As NGINX lacks it's own CGI wrapper, we need external one. Please 
+	note that ZoneMinder's montage page use simultaneous access to all 
+	cameras, so you need to use at least as many fcgiwrap workers as 
+	your number of cameras. The following example assumes you have 4.
 
-	Enable and start fcgiwrap
+	Enable and start FcgiWrap
 		sysrc fcgiwrap_enable="YES"
 		sysrc fcgiwrap_user="www"
 		sysrc fcgiwrap_flags="-c 4"
 
-1.4 PHP is pulled automatically by ZoneMinder run-deps. However, you should tweak 
-	some of it's settings. Edit /usr/local/etc/php-fpm.conf and set
+1.4 PHP is installed as a dependency to ZoneMinder. However, you should 
+	tweak some of it's settings.
+	Edit /usr/local/etc/php-fpm.conf and set
 
 		listen = /var/run/php-fpm.sock
 		listen.owner = www
 		listen.group = www
 		env[PATH] = /usr/local/bin:/usr/bin:/bin
 
-	If you want to set another path for sock file, make sure you change it 
-	for nginx as well. The env[PATH] set path to zip utility as ZoneMinder export functions rely on exec(). Sorry, chroot folks. 
+	If you want to set another path for the socket file, make sure you 
+	change it in your NGINX config well. The env[PATH] needs to be set 
+	to locate the zip utility as ZoneMinder's export functions rely on 
+	exec(). Sorry, chroot folks. 
 
-	PHP throws warning if date.timezone option is not set, so don't forget to set it. The best place to do it is drop ini file to /usr/local/etc/php 
+	PHP throws warning if date.timezone option is not set. The best place 
+	to do it is an ini file in /usr/local/etc/php 
 
 		date.timezone = "UTC"
 
@@ -109,9 +113,9 @@ the same box.
 		sysrc php_fpm_enable="YES"
 		service php-fpm start
 
-1.5 ZoneMinder constantly keeps last N frames from cameras to preserve them when 
-	alarm occurs. It can be a performance hog if placed on spindle 
-	drive. The best practice is put it in tempfs.
+1.5 ZoneMinder constantly keeps the last N frames from its cameras to 
+	preserve them when alarm occurs. This can be a performance hog if 
+	placed on spindle drive. The best practice is put it on tmpfs.
 	See https://www.freebsd.org/cgi/man.cgi?query=tmpfs for more 
 	information.
 
@@ -123,9 +127,9 @@ the same box.
 
 		tmpfs			/tmp		tmpfs	rw,nosuid,mode=01777	0	0
 
-	The size of temp files depends on your cameras number and frames you 
-	plan to keep in it. My 12 3Mbit cameras with 25 last frames 
-	consumes 6 Gb.
+	The size of temporary files depends on your number of cameras 
+	number and frames you plan to keep. My 12 3Mbit cameras with 25 
+	last frames consumes 6 GB.
 
 2. ZoneMinder installation
 
@@ -140,7 +144,7 @@ the same box.
 	
 	mysql -u root -p zm < /usr/local/share/zoneminder/db/zm_create.sql
 	
-2.1 If you have chosen to change the zoneminder mysql credentials to something
+2.1 If you have chosen to change the ZoneMinder MySQL credentials to something
 	other than zmuser/zmpass then you must now edit /usr/local/etc/zm.conf. Change
 	ZM_DB_USER and ZM_DB_PASS to the values you created in the previous step.
 
