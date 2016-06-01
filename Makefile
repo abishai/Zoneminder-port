@@ -2,6 +2,7 @@
 
 PORTNAME=	zoneminder
 PORTVERSION=	1.30.0
+DISTVERSIONPREFIX=  v
 DISTVERSIONSUFFIX=  -rc1
 CATEGORIES=	multimedia
 
@@ -20,7 +21,7 @@ ZM_DEPENDS=	p5-DBI>=0:databases/p5-DBI \
 		p5-Sys-MemInfo>=0:devel/p5-Sys-MemInfo \
 		p5-Data-Dump>=0:devel/p5-Data-Dump \
 		p5-SOAP-WSDL>=0:devel/p5-SOAP-WSDL \
-		p5-UUID>=0:devel/p5-UUID \
+		p5-Data-UUID>=0:devel/p5-Data-UUID \
 		p5-IO-Socket-Multicast>=0:net/p5-IO-Socket-Multicast \
 		ffmpeg:multimedia/ffmpeg
 BUILD_DEPENDS=	${ZM_DEPENDS}
