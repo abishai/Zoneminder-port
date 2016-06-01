@@ -1,8 +1,8 @@
 # $FreeBSD$
 
 PORTNAME=	zoneminder
-PORTVERSION=	1.29.1.a.20160530
-DISTVERSION =	cc949bb
+PORTVERSION=	1.30.0
+DISTVERSIONSUFFIX=  -rc1
 CATEGORIES=	multimedia
 
 MAINTAINER=	foo@bar
@@ -18,6 +18,10 @@ ZM_DEPENDS=	p5-DBI>=0:databases/p5-DBI \
 		p5-LWP-Protocol-https>=0:www/p5-LWP-Protocol-https \
 		p5-Sys-CPU>=0:devel/p5-Sys-Cpu \
 		p5-Sys-MemInfo>=0:devel/p5-Sys-MemInfo \
+		p5-Data-Dump>=0:devel/p5-Data-Dump \
+		p5-SOAP-WSDL>=0:devel/p5-SOAP-WSDL \
+		p5-UUID>=0:devel/p5-UUID \
+		p5-IO-Socket-Multicast>=0:net/p5-IO-Socket-Multicast \
 		ffmpeg:multimedia/ffmpeg
 BUILD_DEPENDS=	${ZM_DEPENDS}
 RUN_DEPENDS=	${ZM_DEPENDS} \
@@ -29,7 +33,7 @@ GH_ACCOUNT=	FriendsOfCake:crud
 GH_PROJECT=	crud:crud
 GH_TAGNAME=	c3976f1:crud
 
-WRKSRC=		${WRKDIR}/ZoneMinder-${DISTVERSION}
+WRKSRC=		${WRKDIR}/ZoneMinder-${DISTVERSION}${DISTVERSIONSUFFIX}
 
 USES=		cmake jpeg perl5 shebangfix
 USE_MYSQL=	yes
