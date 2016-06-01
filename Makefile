@@ -80,7 +80,7 @@ CMAKE_ARGS+=	-DZM_PERL_MM_PARMS=INSTALLDIRS=site \
 PKGMESSAGE= ${WRKDIR}/pkg-message
 
 post-extract:
-	${MV} ${WRKSRC_crud}/* ${WRKSRC}/web/api/app/Plugin/Crud
+	${CP} ${WRKSRC_crud}/* ${WRKSRC}/web/api/app/Plugin/Crud
 	${CP} ${FILESDIR}/README.FreeBSD ${WRKSRC}
 	${CP} ${FILESDIR}/README.FreeBSD ${PKGMESSAGE}
 	${REINPLACE_CMD} -e 's,/dev/shm,/tmp,g' ${WRKSRC}/scripts/ZoneMinder/lib/ZoneMinder/ConfigData.pm.in
