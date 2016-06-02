@@ -1,6 +1,6 @@
---- misc/CMakeLists.txt.orig	2016-03-20 01:05:47.000000000 +0300
-+++ misc/CMakeLists.txt	2016-03-22 20:55:48.000000000 +0300
-@@ -13,6 +13,7 @@
+--- misc/CMakeLists.txt.orig	2016-06-01 00:41:17 UTC
++++ misc/CMakeLists.txt
+@@ -13,6 +13,7 @@ configure_file(zoneminder-tmpfiles.conf.
  #install(FILES "${CMAKE_CURRENT_BINARY_DIR}/apache.conf" "${CMAKE_CURRENT_BINARY_DIR}/logrotate.conf" "${CMAKE_CURRENT_BINARY_DIR}/syslog.conf" DESTINATION "${CMAKE_INSTALL_DATADIR}/zoneminder/misc")
  
  # Install Policykit rules and actions into the proper folders

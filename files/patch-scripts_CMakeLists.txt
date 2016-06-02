@@ -1,6 +1,6 @@
---- scripts/CMakeLists.txt.orig	2016-04-20 23:59:32.562157000 +0300
-+++ scripts/CMakeLists.txt	2016-04-21 00:00:52.038521000 +0300
-@@ -32,7 +32,7 @@
+--- scripts/CMakeLists.txt.orig	2016-06-01 00:41:17 UTC
++++ scripts/CMakeLists.txt
+@@ -32,7 +32,7 @@ FOREACH(PERLSCRIPT ${perlscripts})
  ENDFOREACH(PERLSCRIPT ${perlscripts})
  
  # Install the perl scripts
@@ -9,4 +9,3 @@
  if(NOT ZM_NO_X10)
  	install(FILES "${CMAKE_CURRENT_BINARY_DIR}/zmx10.pl" DESTINATION "${CMAKE_INSTALL_FULL_BINDIR}" PERMISSIONS OWNER_WRITE OWNER_READ OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
  endif(NOT ZM_NO_X10)
-
