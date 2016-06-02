@@ -83,9 +83,9 @@ post-extract:
 	${CP} ${WRKSRC_crud}/* ${WRKSRC}/web/api/app/Plugin/Crud
 	${CP} ${FILESDIR}/README.FreeBSD ${WRKSRC}
 	${CP} ${FILESDIR}/README.FreeBSD ${PKGMESSAGE}
-        ${REINPLACE_CMD} -e 's|/dev/shm|/tmp|g' ${WRKSRC}/scripts/ZoneMinder/lib/ZoneMinder/ConfigData.pm.in
-        ${REINPLACE_CMD} -e 's|E_ALL|E_ALL^E_NOTICE|g' ${WRKSRC}/web/index.php
-        ${REINPLACE_CMD} -e 's|sizeof(loc_addr.sun_family))+1|sizeof(loc_addr.sun_family)+1)|g' ${WRKSRC}/src/zm_stream.cpp
+	${REINPLACE_CMD} -e 's|/dev/shm|/tmp|g' ${WRKSRC}/scripts/ZoneMinder/lib/ZoneMinder/ConfigData.pm.in
+	${REINPLACE_CMD} -e 's|E_ALL|E_ALL^E_NOTICE|g' ${WRKSRC}/web/index.php
+	${REINPLACE_CMD} -e 's|sizeof(loc_addr.sun_family))+1|sizeof(loc_addr.sun_family)+1)|g' ${WRKSRC}/src/zm_stream.cpp
 
 pre-install:
 	${MKDIR} ${STAGEDIR}${WWWDIR}/images
