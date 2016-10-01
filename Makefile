@@ -1,9 +1,9 @@
-# $FreeBSD$
+# $FreeBSD: $
 
-PORTNAME=	zoneminder
-PORTVERSION=	1.30.0
-DISTVERSIONPREFIX=  v
-DISTVERSIONSUFFIX=  -rc1
+PORTNAME=	zoneminder-h264
+PORTVERSION=	1.30.20160917
+DISTVERSIONSUFFIX=	9347c55
+PORTREVISION=	3
 CATEGORIES=	multimedia
 
 MAINTAINER=	foo@bar
@@ -24,23 +24,28 @@ ZM_DEPENDS=	p5-DBI>=0:databases/p5-DBI \
 		p5-Data-UUID>=0:devel/p5-Data-UUID \
 		p5-IO-Socket-Multicast>=0:net/p5-IO-Socket-Multicast \
 		ffmpeg:multimedia/ffmpeg
-BUILD_DEPENDS=	${ZM_DEPENDS}
+
+BUILD_DEPENDS=	${ZM_DEPENDS} \
+		boost-libs>=0:devel/boost-libs
+
+LIB_DEPENDS=	libx264.so:multimedia/libx264 \
+		libmp4v2.so:multimedia/mp4v2 
+
 RUN_DEPENDS=	${ZM_DEPENDS} \
 		sudo:security/sudo \
 		zip:archivers/zip
 
 USE_GITHUB=	yes
-GH_ACCOUNT=	FriendsOfCake:crud
-GH_PROJECT=	crud:crud
-GH_TAGNAME=	c3976f1:crud
+GH_TUPLE=	zoneminder:zoneminder:9347c55 \
+		FriendsOfCake:crud:c3976f1:crud
 
-WRKSRC=		${WRKDIR}/ZoneMinder-${DISTVERSION}${DISTVERSIONSUFFIX}
+WRKSRC=		${WRKDIR}/ZoneMinder-${DISTVERSIONSUFFIX}
 
-USES=		cmake jpeg perl5 shebangfix
-USE_MYSQL=	yes
+USES=		cmake jpeg mysql perl5 php shebangfix ssl
 USE_RC_SUBR=	zoneminder
-PHP=		json pdo_mysql session
-IGNORE_WITH_PHP=    70
+USE_PHP=	json pdo_mysql session gd sockets
+
+ONLY_FOR_ARCHS=	amd64 i386
 
 OPTIONS_DEFINE=	NLS V4L DOCS
 OPTIONS_SUB=	yes
@@ -75,9 +80,24 @@ CMAKE_ARGS+=	-DZM_PERL_MM_PARMS=INSTALLDIRS=site \
 		-DZM_CGIDIR=${WWWDIR}/cgi-bin \
 		-DZM_CONTENTDIR=${WWWDIR} \
 		-DHAVE_SENDFILE=0 \
+		-DZM_NO_CURL=ON \
+		-DZM_NO_LIBVLC=ON \
+		-DPCRE_LIBRARIES=0 \
+		-DGNUTLS_LIBRARIES=0 \
 		-DCMAKE_REQUIRED_INCLUDES:STRING="${LOCALBASE}/include"
 
-PKGMESSAGE= ${WRKDIR}/pkg-message
+.include <bsd.port.pre.mk>
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1000000 && ${ARCH} == i386
+CFLAGS+=	-msse
+.endif
+
+.if ${OPSYS} == FreeBSD && ${OSVERSION} < 1000000
+LIB_DEPENDS+=	libexecinfo.so:devel/libexecinfo
+LDFLAGS+=	-L${LOCALBASE}/lib
+.endif
+
+PKGMESSAGE=	${WRKDIR}/pkg-message
 
 post-extract:
 	${CP} -R ${WRKSRC_crud}/* ${WRKSRC}/web/api/app/Plugin/Crud
@@ -85,7 +105,6 @@ post-extract:
 	${CP} ${FILESDIR}/README.FreeBSD ${PKGMESSAGE}
 	${REINPLACE_CMD} -e 's|/dev/shm|/tmp|g' ${WRKSRC}/scripts/ZoneMinder/lib/ZoneMinder/ConfigData.pm.in
 	${REINPLACE_CMD} -e 's|E_ALL|E_ALL^E_NOTICE|g' ${WRKSRC}/web/index.php
-	${REINPLACE_CMD} -e 's|sizeof(loc_addr.sun_family))+1|sizeof(loc_addr.sun_family)+1)|g' ${WRKSRC}/src/zm_stream.cpp
 
 pre-install:
 	${MKDIR} ${STAGEDIR}${WWWDIR}/images
@@ -102,4 +121,4 @@ post-install-DOCS-on:
 	${MKDIR} ${STAGEDIR}${DOCSDIR}
 	cd ${WRKSRC} && ${INSTALL_MAN} ${PORTDOCS} ${STAGEDIR}${DOCSDIR}
 
-.include <bsd.port.mk>
+.include <bsd.port.post.mk>

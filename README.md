@@ -1,2 +1,2 @@
 # Zoneminder-port
-Zoneminder port for FreeBSD
+This is Zoneminder with H264 backend support
