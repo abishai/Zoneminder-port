@@ -1,9 +1,8 @@
 # $FreeBSD: $
 
 PORTNAME=	zoneminder-h264
-PORTVERSION=	1.30.20160917
-DISTVERSIONSUFFIX=	9347c55
-PORTREVISION=	3
+PORTVERSION=	1.30.20160930
+DISTVERSIONSUFFIX=	f09c6c9
 CATEGORIES=	multimedia
 
 MAINTAINER=	foo@bar
@@ -36,7 +35,7 @@ RUN_DEPENDS=	${ZM_DEPENDS} \
 		zip:archivers/zip
 
 USE_GITHUB=	yes
-GH_TUPLE=	zoneminder:zoneminder:9347c55 \
+GH_TUPLE=	zoneminder:zoneminder:f09c6c9 \
 		FriendsOfCake:crud:c3976f1:crud
 
 WRKSRC=		${WRKDIR}/ZoneMinder-${DISTVERSIONSUFFIX}
