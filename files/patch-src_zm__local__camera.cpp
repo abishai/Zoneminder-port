@@ -1,4 +1,4 @@
---- src/zm_local_camera.cpp.orig	2016-09-18 12:02:20 UTC
+--- src/zm_local_camera.cpp.orig	2016-10-03 17:21:50 UTC
 +++ src/zm_local_camera.cpp
 @@ -33,7 +33,7 @@
  #include <limits.h>

@@ -1,4 +1,4 @@
---- misc/CMakeLists.txt.orig	2016-06-01 00:41:17 UTC
+--- misc/CMakeLists.txt.orig	2016-10-03 17:21:50 UTC
 +++ misc/CMakeLists.txt
 @@ -13,6 +13,7 @@ configure_file(zoneminder-tmpfiles.conf.
  #install(FILES "${CMAKE_CURRENT_BINARY_DIR}/apache.conf" "${CMAKE_CURRENT_BINARY_DIR}/logrotate.conf" "${CMAKE_CURRENT_BINARY_DIR}/syslog.conf" DESTINATION "${CMAKE_INSTALL_DATADIR}/zoneminder/misc")

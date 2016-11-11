@@ -1,4 +1,4 @@
---- src/zm_signal.cpp.orig	2016-06-01 00:41:17 UTC
+--- src/zm_signal.cpp.orig	2016-10-03 17:21:50 UTC
 +++ src/zm_signal.cpp
 @@ -63,17 +63,9 @@ RETSIGTYPE zm_die_handler(int signal)
  		ucontext_t *uc = (ucontext_t *) context;

@@ -16,6 +16,7 @@ bin/zmupdate.pl
 bin/zmvideo.pl
 bin/zmwatch.pl
 bin/zmx10.pl
+etc/rc.d/zoneminder
 @sample etc/zm.conf.sample
 %%SITE_PERL%%/ONVIF/Analytics/Attributes/actor.pm
 %%SITE_PERL%%/ONVIF/Analytics/Attributes/contentType.pm
@@ -3011,10 +3012,7 @@ bin/zmx10.pl
 %%SITE_PERL%%/ZoneMinder/Memory.pm
 %%SITE_PERL%%/ZoneMinder/Memory/Mapped.pm
 %%SITE_PERL%%/ZoneMinder/Memory/Shared.pm
-%%SITE_PERL%%/ZoneMinder/Monitor.pm
-%%SITE_PERL%%/ZoneMinder/Object.pm
 %%SITE_PERL%%/ZoneMinder/Server.pm
-%%SITE_PERL%%/ZoneMinder/Storage.pm
 %%SITE_PERL%%/ZoneMinder/Trigger/Channel.pm
 %%SITE_PERL%%/ZoneMinder/Trigger/Channel/File.pm
 %%SITE_PERL%%/ZoneMinder/Trigger/Channel/Handle.pm
@@ -3024,6 +3022,8 @@ bin/zmx10.pl
 %%SITE_PERL%%/ZoneMinder/Trigger/Channel/Unix.pm
 %%SITE_PERL%%/ZoneMinder/Trigger/Connection.pm
 %%SITE_PERL%%/ZoneMinder/Trigger/Connection/Example.pm
+%%SITE_ARCH%%/auto/ONVIF/.packlist
+%%SITE_ARCH%%/auto/ZoneMinder/.packlist
 %%PERL5_MAN3%%/ONVIF::Analytics::Attributes::actor.3.gz
 %%PERL5_MAN3%%/ONVIF::Analytics::Attributes::contentType.3.gz
 %%PERL5_MAN3%%/ONVIF::Analytics::Attributes::encodingStyle.3.gz
@@ -6003,10 +6003,7 @@ bin/zmx10.pl
 %%PERL5_MAN3%%/ZoneMinder::General.3.gz
 %%PERL5_MAN3%%/ZoneMinder::Logger.3.gz
 %%PERL5_MAN3%%/ZoneMinder::Memory.3.gz
-%%PERL5_MAN3%%/ZoneMinder::Monitor.3.gz
-%%PERL5_MAN3%%/ZoneMinder::Object.3.gz
 %%PERL5_MAN3%%/ZoneMinder::Server.3.gz
-%%PERL5_MAN3%%/ZoneMinder::Storage.3.gz
 %%PERL5_MAN3%%/ZoneMinder::Trigger::Channel.3.gz
 %%PERL5_MAN3%%/ZoneMinder::Trigger::Channel::File.3.gz
 %%PERL5_MAN3%%/ZoneMinder::Trigger::Channel::Handle.3.gz
@@ -6097,14 +6094,9 @@ share/zoneminder/db/zm_update-1.28.109.sql
 share/zoneminder/db/zm_update-1.28.110.sql
 share/zoneminder/db/zm_update-1.28.99.sql
 share/zoneminder/db/zm_update-1.29.0.sql
+share/zoneminder/db/zm_update-1.29.1.sql
+share/zoneminder/db/zm_update-1.29.2.sql
 share/zoneminder/db/zm_update-1.30.0.sql
-share/zoneminder/db/zm_update-1.30.1.sql
-share/zoneminder/db/zm_update-1.30.2.sql
-share/zoneminder/db/zm_update-1.30.3.sql
-share/zoneminder/db/zm_update-1.30.4.sql
-share/zoneminder/db/zm_update-1.30.5.sql
-share/zoneminder/db/zm_update-1.30.6.sql
-share/zoneminder/db/zm_update-1.30.7.sql
 %%WWWDIR%%/ajax/alarm.php
 %%WWWDIR%%/ajax/control.php
 %%WWWDIR%%/ajax/event.php
@@ -6113,6 +6105,8 @@ share/zoneminder/db/zm_update-1.30.7.sql
 %%WWWDIR%%/ajax/stream.php
 %%WWWDIR%%/ajax/zone.php
 %%WWWDIR%%/api/.editorconfig
+%%WWWDIR%%/api/.gitattributes
+%%WWWDIR%%/api/.gitignore
 %%WWWDIR%%/api/.htaccess
 %%WWWDIR%%/api/CONTRIBUTING.md
 %%WWWDIR%%/api/README.md
@@ -7407,7 +7401,6 @@ share/zoneminder/db/zm_update-1.30.7.sql
 %%WWWDIR%%/api/lib/Cake/bootstrap.php
 %%WWWDIR%%/cgi-bin/nph-zms
 %%WWWDIR%%/cgi-bin/zms
-%%WWWDIR%%/css/bootstrap.min.css
 %%WWWDIR%%/css/overlay.css
 %%WWWDIR%%/css/reset.css
 %%WWWDIR%%/css/spinner.css
@@ -7570,7 +7563,6 @@ share/zoneminder/db/zm_update-1.30.7.sql
 %%WWWDIR%%/skins/classic/includes/functions.php
 %%WWWDIR%%/skins/classic/includes/init.php
 %%WWWDIR%%/skins/classic/includes/timeline_functions.php
-%%WWWDIR%%/skins/classic/js/bootstrap.min.js
 %%WWWDIR%%/skins/classic/js/classic.js
 %%WWWDIR%%/skins/classic/js/dark.js
 %%WWWDIR%%/skins/classic/js/flat.js
@@ -7673,7 +7665,6 @@ share/zoneminder/db/zm_update-1.30.7.sql
 %%WWWDIR%%/skins/classic/views/state.php
 %%WWWDIR%%/skins/classic/views/stats.php
 %%WWWDIR%%/skins/classic/views/status.php
-%%WWWDIR%%/skins/classic/views/storage.php
 %%WWWDIR%%/skins/classic/views/timeline.php
 %%WWWDIR%%/skins/classic/views/user.php
 %%WWWDIR%%/skins/classic/views/version.php
@@ -7694,3 +7685,4 @@ share/zoneminder/db/zm_update-1.30.7.sql
 @dir(%%WWWOWN%%,%%WWWGRP%%,) %%WWWDIR%%/temp
 @dir(%%WWWOWN%%,%%WWWGRP%%,) /var/run/zm
 @dir(%%WWWOWN%%,%%WWWGRP%%,) /var/tmp/zm
+

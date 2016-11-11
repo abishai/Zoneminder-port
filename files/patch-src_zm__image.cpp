@@ -1,6 +1,6 @@
---- src/zm_image.cpp.orig	2016-06-01 00:41:17 UTC
+--- src/zm_image.cpp.orig	2016-10-03 17:21:50 UTC
 +++ src/zm_image.cpp
-@@ -1619,12 +1619,9 @@ Image *Image::Highlight( unsigned int n_
+@@ -1649,12 +1649,9 @@ Image *Image::Highlight( unsigned int n_
        for ( unsigned int j = 0; j < n_images; j++ )
        {
          uint8_t *psrc = images[j]->buffer+c;
