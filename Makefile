@@ -42,7 +42,7 @@ WRKSRC=		${WRKDIR}/ZoneMinder-${DISTVERSIONSUFFIX}
 
 USES=		cmake jpeg mysql perl5 php shebangfix ssl
 USE_RC_SUBR=	zoneminder
-USE_PHP=	json pdo_mysql session gd sockets
+USE_PHP=	json pdo_mysql session gd sockets ctype
 
 ONLY_FOR_ARCHS=	amd64 i386
 
