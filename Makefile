@@ -1,8 +1,8 @@
 # $FreeBSD: $
 
 PORTNAME=	zoneminder-h264
-PORTVERSION=	1.30.20161003
-DISTVERSIONSUFFIX=	a7979eb	
+PORTVERSION=	1.30.20161104
+DISTVERSIONSUFFIX=	a2f782d	
 CATEGORIES=	multimedia
 
 MAINTAINER=	foo@bar
@@ -30,11 +30,12 @@ LIB_DEPENDS=	libx264.so:multimedia/libx264 \
 		libmp4v2.so:multimedia/mp4v2 
 
 RUN_DEPENDS=	${ZM_DEPENDS} \
+		p5-MIME-Tools>=0:mail/p5-MIME-Tools \
 		sudo:security/sudo \
 		zip:archivers/zip
 
 USE_GITHUB=	yes
-GH_TUPLE=	zoneminder:zoneminder:a7979eb \
+GH_TUPLE=	zoneminder:zoneminder:a2f782d \
 		FriendsOfCake:crud:c3976f1:crud
 
 WRKSRC=		${WRKDIR}/ZoneMinder-${DISTVERSIONSUFFIX}

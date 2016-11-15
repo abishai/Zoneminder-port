@@ -16,7 +16,6 @@ bin/zmupdate.pl
 bin/zmvideo.pl
 bin/zmwatch.pl
 bin/zmx10.pl
-etc/rc.d/zoneminder
 @sample etc/zm.conf.sample
 %%SITE_PERL%%/ONVIF/Analytics/Attributes/actor.pm
 %%SITE_PERL%%/ONVIF/Analytics/Attributes/contentType.pm
@@ -3022,8 +3021,6 @@ etc/rc.d/zoneminder
 %%SITE_PERL%%/ZoneMinder/Trigger/Channel/Unix.pm
 %%SITE_PERL%%/ZoneMinder/Trigger/Connection.pm
 %%SITE_PERL%%/ZoneMinder/Trigger/Connection/Example.pm
-%%SITE_ARCH%%/auto/ONVIF/.packlist
-%%SITE_ARCH%%/auto/ZoneMinder/.packlist
 %%PERL5_MAN3%%/ONVIF::Analytics::Attributes::actor.3.gz
 %%PERL5_MAN3%%/ONVIF::Analytics::Attributes::contentType.3.gz
 %%PERL5_MAN3%%/ONVIF::Analytics::Attributes::encodingStyle.3.gz
