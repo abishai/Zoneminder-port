@@ -71,7 +71,7 @@ SHEBANG_FILES=	scripts/zmaudit.pl.in \
 		scripts/zmonvif-probe.pl.in \
 		scripts/zmrecover.pl.in
 
-PORTDOCS=	AUTHORS BUGS ChangeLog INSTALL NEWS README.FreeBSD TODO
+PORTDOCS=	README.FreeBSD
 
 CMAKE_ARGS+=	-DZM_PERL_MM_PARMS=INSTALLDIRS=site \
 		-DZM_CONFIG_DIR=${PREFIX}/etc \
